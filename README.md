@@ -7,11 +7,15 @@ public folder controls the frontend
 
 
 Start
-backend - cd ~/card-game/backend npx nodemon server.js
+* Backend - `cd ~/card-game/backend npx nodemon server.js`
+
     Should see the following if connection is correct: 
+
         listening on 4000 Database connected: mongodb+srv://Neode:2046Somers@card-game-myl68.mongodb.net/ClanFare?retryWrites=true&w=majority
-frontend - cd ~/card-game npm start
+
+* Frontend - `cd ~/card-game npm start`
     Should see the following if frontend is correct:
+
         You can now view card-game in the browser.
 
             Local:            http://localhost:3000
