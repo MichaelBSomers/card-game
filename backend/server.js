@@ -4,20 +4,22 @@ let cors = require('cors');
 let bodyParser = require('body-parser');
 let dbConfig = require('./database/db');
 
-// Express Route
-const studentRoute = require('../backend/routes/student.route')
-
 // Connecting mongoDB Database
 mongoose.Promise = global.Promise;
 mongoose.connect(dbConfig.db, {
-  useNewUrlParser: true
-}).then(() => {
-  console.log('Database sucessfully connected!')
-},
-  error => {
-    console.log('Could not connect to database : ' + error)
-  }
-)
+  // Removes DeprecationWarning
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
+
+const db = mongoose.connection
+const cardsCollection = db.collection('Cards')
+db.once('open', _ => {
+  console.log('Database connected:', dbConfig.db)
+})
+db.on('error', err => {
+  console.error('connection error:', err)
+})
 
 const app = express();
 app.use(bodyParser.json());
@@ -25,22 +27,15 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 app.use(cors());
-app.use('/students', studentRoute)
 
+app.listen(4000, function() {
+  console.log('listening on 4000')
+}) 
 
-// PORT
-const port = process.env.PORT || 4000;
-const server = app.listen(port, () => {
-  console.log('Connected to port ' + port)
+app.post('/cards', (req, res) => {
+  cardsCollection.insertOne(req.body)
+    .then(result => {
+      console.log(result)
+    })
+    .catch(error => console.error(error))
 })
-
-// 404 Error
-app.use((req, res, next) => {
-  next(createError(404));
-});
-
-app.use(function (err, req, res, next) {
-  console.error(err.message);
-  if (!err.statusCode) err.statusCode = 500;
-  res.status(err.statusCode).send(err.message);
-});
