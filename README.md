@@ -7,7 +7,7 @@ public folder controls the frontend
 
 
 Start
-* Backend - `cd ~/card-game/backend npx nodemon server.js`
+* Backend - `cd backend && npx nodemon server.js`
 
     Should see the following if connection is correct: 
 

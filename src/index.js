@@ -1,16 +1,101 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter } from "react-router-dom";
 
 import "./index.css";
-import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+import {
+  Container,
+  Collapse,
+  Navbar,
+  NavbarToggler,
+  NavbarBrand,
+  Nav,
+  NavItem,
+  NavLink,
+  UncontrolledDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
+  NavbarText
+} from 'reactstrap';
+
+// Pages
+import Home from "./pages/home";
+import ViewCard from "./pages/viewCard"
+import ViewDeck from "./pages/viewDeck"
+import CreateCard from "./pages/createCard"
+import CreateDeck from "./pages/createDeck"
+
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+
+
 ReactDOM.render(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>,
+  <div className={'background'}>
+  <Router>
+    <Container>
+        <Navbar color="light" light expand="md">
+        <NavbarBrand>
+          <Link to="/">ClanFare</Link>
+        </NavbarBrand>
+        <NavbarToggler  />
+        <Collapse  navbar>
+          <Nav className="mr-auto" navbar>
+            <NavItem>
+              <NavLink>
+                <Link to="/card-viewer">Card Viewer</Link>
+              </NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink>
+                <Link to="/deck-viewer">Deck Viewer</Link>
+              </NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink>
+                <Link to="/card-creater">Card Creater</Link>
+              </NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink>
+                <Link to="/deck-creater">Deck Creater</Link>
+              </NavLink>
+            </NavItem>
+          </Nav>
+          <NavbarText>Simple Text</NavbarText>
+        </Collapse>
+      </Navbar>
+      <Switch>
+      <Route path="/card-viewer">
+        <ViewCard/>
+      </Route>
+      <Route path="/deck-viewer">
+        <ViewDeck/>
+      </Route>
+      <Route path="/card-creater">
+        <CreateCard/>
+      </Route>
+      <Route path="/deck-creater">
+        <CreateDeck/>
+      </Route>
+      <Route path="/">
+        <Home/>
+      </Route>
+    </Switch>
+      </Container>
+    
+    
+    
+
+    
+  </Router>
+  </div>,
   document.getElementById("root")
 );
 
