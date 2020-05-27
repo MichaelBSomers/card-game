@@ -1,53 +1,72 @@
-import React, { Component } from "react";
-import Form from 'react-bootstrap/Form'
-import Button from 'react-bootstrap/Button';
+import React, { useEffect, useState } from "react";
+import { Row, Container, Col, Button } from 'reactstrap';
 import axios from 'axios';
+import CardView from "./components/CardView";
 
-export default class CreateStudent extends Component {
+const ViewCard = () => {
+  const [cards, setCards] = useState([])
+  const [selectedCard, setSelectedCard] = useState(null)
+  const onSubmit = async (e) => {
+    e.preventDefault()
 
-  constructor(props) {
-    super(props)
+    const cardInfo = {
+    };
 
-    // Setting up functions
-    this.onChangeStudentName = this.onChangeStudentName.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
+    const response = await axios.get('http://localhost:4000/cards', cardInfo)
+    console.log('response', response)
+  }
 
-    // Setting up state
-    this.state = {
-      name: '',
+  useEffect(() => {
+    retrieveCards()
+  }, [])
+
+  const retrieveCards = async () => {
+    const response = await axios.get('http://localhost:4000/cards')
+    if(response.status === 200 && response.data.length > 0) {
+      setCards(response.data)
     }
   }
 
-  onChangeStudentName(e) {
-    this.setState({ name: e.target.value })
-  }
+  console.log('cards', cards)
 
-  onSubmit(e) {
-    e.preventDefault()
-
-    const studentObject = {
-      name: this.state.name, 
-    };
-    axios.post('http://localhost:4000/cards', studentObject)
-      .then(res => console.log(res.data));
-
-    this.setState({ name: '', email: '', rollno: '' })
-  }
-
-  render() {
-    return (
-      <div className="form-wrapper">
-        <Form onSubmit={this.onSubmit}>
-          <Form.Group controlId="Name">
-            <Form.Label>Name</Form.Label>
-            <Form.Control type="text" value={this.state.name} onChange={this.onChangeStudentName} />
-          </Form.Group>
-
-          <Button variant="danger" size="lg" block="block" type="submit">
-            Create Student
-          </Button>
-        </Form>
-      </div>
-    );
-  }
+  return (
+    <Container className={'pt-3'}>
+      <Row>
+        <Col>
+          <h1>Card Viewer</h1>
+        </Col>
+      </Row>
+      <hr/>
+      <Row>
+        <Col>
+          Card Count: {cards.length}
+        </Col>
+      </Row>
+      {
+        cards.length > 0 && 
+        <Container className={'p-3'}>
+          {
+            cards.map(card => {
+              return (
+                <Row key={card._id}>
+                  <Col md={'auto'}>
+                    <Button block onClick={() => {setSelectedCard(card)}}>
+                      {card.name}
+                    </Button>
+                  </Col>
+                </Row>
+              )
+            })
+          }
+        </Container>
+      }
+      {
+        selectedCard &&
+        <CardView card={selectedCard}/>
+      }
+      
+    </Container>
+  )
 }
+
+export default ViewCard

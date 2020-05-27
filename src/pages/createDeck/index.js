@@ -1,51 +1,71 @@
-import React, { Component } from "react";
-import Form from 'react-bootstrap/Form'
-import Button from 'react-bootstrap/Button';
+import React, { useState } from "react";
+import { Button, Form, FormGroup, Label, Input, Row, Container, Col, FormText } from 'reactstrap';
 import axios from 'axios';
 
-export default class CreateStudent extends Component {
 
-  constructor(props) {
-    super(props)
+const CreateDeck = () => {
+  const [name, setName] = useState('')
+  const [description, setDescription] = useState('')
+  const [image, setImage] = useState('')
 
-    // Setting up functions
-    this.onChangeStudentName = this.onChangeStudentName.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
-
-    // Setting up state
-    this.state = {
-      name: '',
-    }
-  }
-
-  onChangeStudentName(e) {
-    this.setState({ name: e.target.value })
-  }
-
-  onSubmit(e) {
+  const onSubmit = async (e) => {
     e.preventDefault()
 
-    const studentObject = {
-      name: this.state.name, 
+    const deckInfo = {
+      name,
+      description,
+      image
     };
-    axios.post('http://localhost:4000/cards', studentObject)
-      .then(res => console.log(res.data));
 
-    this.setState({ name: '', email: '', rollno: '' })
+    const response = await axios.post('http://localhost:4000/decks', deckInfo)
+    console.log('response', response)
   }
 
-  render() {
-    return (<div className="form-wrapper">
-      <Form onSubmit={this.onSubmit}>
-        <Form.Group controlId="Name">
-          <Form.Label>Name</Form.Label>
-          <Form.Control type="text" value={this.state.name} onChange={this.onChangeStudentName} />
-        </Form.Group>
+  return (
+    <Container className={'pt-3'}>
+          <Row>
+            <Col>
+              <h1>Deck Creator</h1>
+            </Col>
+          </Row>
+          <hr/>
+          <Form onSubmit={onSubmit}>
+          <Row>
+            <Col md={6}>
+              <FormGroup>
+                <Label required for='name'>Name*</Label>
+                <Input type="text" value={name} onChange={(e) => setName(e.target.value)} required id='name' maxLength={35} placeholder={'Deck Name'}/>
+              </FormGroup>  
+            </Col>
+            <Col md={6}>
+            </Col>
+          </Row>
+         
+          <Row>
+            <Col>
+              <FormGroup>
+                <Label for="description">Description</Label>
+                <Input type='textarea' value={description} onChange={(e) => setDescription(e.target.value)} id='description' maxLength={255} placeholder={'Enter Deck Description'}/>
+              </FormGroup>
+            </Col>
+          </Row>
 
-        <Button variant="danger" size="lg" block="block" type="submit">
-          Create Student
-        </Button>
-      </Form>
-    </div>);
-  }
+          <Row>
+            <Col>
+              <FormGroup>
+                <Label for='image'>Image</Label>
+                <Input type="file" value={image} onChange={(e) => setImage(e.target.value)} id='image'/>
+                <FormText>Upload the image you want to use for this Deck.</FormText>
+              </FormGroup>
+            </Col>
+          </Row>
+          
+          <Button variant="danger" size="lg" block type="submit">
+            Create Deck
+          </Button>
+        </Form>
+      </Container>
+  )
 }
+
+export default CreateDeck
