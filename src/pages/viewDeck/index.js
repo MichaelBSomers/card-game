@@ -27,8 +27,6 @@ const ViewCard = () => {
     }
   }
 
-  console.log('cards', decks)
-
   return (
     <Container className={'pt-3'}>
       <Row>

@@ -48,7 +48,6 @@ app.post('/cards/update', (req, res) => {
     power: req.body.power,
     toughness: req.body.toughness
   }}
-  console.log(newValues)
   const id = new mongoose.Types.ObjectId(req.body._id)
   cardsCollection.updateOne({_id: id}, newValues)
     .then(result => {
@@ -62,7 +61,6 @@ app.post('/cards/update', (req, res) => {
 app.post('/cards/delete', (req, res) => {
   
   let id = new mongoose.Types.ObjectId(req.body._id)
-  console.log(id)
   cardsCollection.deleteOne({_id: id})
     .then(result => {
       res.send(result)

@@ -37,7 +37,6 @@ const ViewCard = () => {
   }
 
   const editCard = async (card) => {
-    console.log(card)
     const response = await axios.post('http://localhost:4000/cards/update', card)
     if(response.status === 200) {
       retrieveCards()

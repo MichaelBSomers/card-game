@@ -32,7 +32,6 @@ const CreateCard = () => {
 
   const [decks, setDecks] = useState([])
 
-
   useEffect(() => {
     retrieveDeckList()
   }, [])
@@ -63,6 +62,7 @@ const CreateCard = () => {
     }
 
     const response = await axios.post('http://localhost:4000/cards', cardInfo)
+    // TODO Implement Confirmation/Error
     console.log('response', response)
 
     setName('')
@@ -70,8 +70,6 @@ const CreateCard = () => {
     setFaction('')
     setCardType(null)
   }
-
-  console.log('decks', decks)
 
   return (
     <Container className={'pt-3'}>
