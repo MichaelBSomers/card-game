@@ -2,18 +2,18 @@ import React, { useState } from "react";
 import { Button, Form, FormGroup, Label, Input, Row, Container, Col, FormText } from 'reactstrap';
 import axios from 'axios';
 
-const CARD_TYPES = {
+ export const CARD_TYPES = {
   creature: 'Creature',
   spell: 'Spell',
   legendary: 'Legendary'
 }
 
-const CARD_RARITIES = {
+export const CARD_RARITIES = {
   common: 'Common',
   rare: 'Rare'
 }
 
-const FACTIONS = {
+export const FACTIONS = {
   test: 'test',
   testTwo: 'testTwo'
 }

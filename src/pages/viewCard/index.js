@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Button, Form, Row, Container, Col } from 'reactstrap';
+import { Row, Container, Col, Button } from 'reactstrap';
 import axios from 'axios';
+import CardView from "./components/CardView";
 
 const ViewCard = () => {
-  const [cards, setCards] = useState([null])
+  const [cards, setCards] = useState([])
+  const [selectedCard, setSelectedCard] = useState(null)
   const onSubmit = async (e) => {
     e.preventDefault()
 
@@ -25,33 +27,45 @@ const ViewCard = () => {
     }
   }
 
-  console.log(cards)
+  console.log('cards', cards)
 
   return (
     <Container className={'pt-3'}>
-        <Row>
-          <Col>
-          </Col>
-        </Row>
-        <Form onSubmit={onSubmit}>
-          <Row>
-            <Col>
-              <h1>Card Viewer</h1>
-            </Col>
-          </Row>
-          <hr/>
-          <Row>
-            <Col>
-            
-            </Col>
-          </Row>
-          
-          {/* TODO: Implement disabled handling */}
-          <Button variant="danger" size="lg" block type="submit">
-            Retrieve Cards
-          </Button>
-        </Form>
-      </Container>
+      <Row>
+        <Col>
+          <h1>Card Viewer</h1>
+        </Col>
+      </Row>
+      <hr/>
+      <Row>
+        <Col>
+          Card Count: {cards.length}
+        </Col>
+      </Row>
+      {
+        cards.length > 0 && 
+        <Container className={'p-3'}>
+          {
+            cards.map(card => {
+              return (
+                <Row key={card._id}>
+                  <Col md={'auto'}>
+                    <Button block onClick={() => {setSelectedCard(card)}}>
+                      {card.name}
+                    </Button>
+                  </Col>
+                </Row>
+              )
+            })
+          }
+        </Container>
+      }
+      {
+        selectedCard &&
+        <CardView card={selectedCard}/>
+      }
+      
+    </Container>
   )
 }
 
