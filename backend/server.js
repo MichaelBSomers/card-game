@@ -13,7 +13,11 @@ mongoose.connect(dbConfig.db, {
 })
 
 const db = mongoose.connection
+
+// Collection List
 const cardsCollection = db.collection('Cards')
+const decksCollection = db.collection('Decks')
+
 db.once('open', _ => {
   console.log('Database connected:', dbConfig.db)
 })
@@ -45,6 +49,17 @@ app.get('/cards', (req, res) => {
 
 app.post('/cards', (req, res) => {
   cardsCollection.insertOne(req.body)
+    .then(result => {
+      console.log(result)
+      res.send(result.ops)
+    })
+    .catch(error => {
+      res.send(error)
+    })
+})
+
+app.post('/decks', (req, res) => {
+  decksCollection.insertOne(req.body)
     .then(result => {
       console.log(result)
       res.send(result.ops)
