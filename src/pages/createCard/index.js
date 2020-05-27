@@ -33,8 +33,6 @@ const CreateCard = () => {
   const onSubmit = async (e) => {
     e.preventDefault()
 
-    console.log(e)
-
     const cardInfo = {
       name,
       image,

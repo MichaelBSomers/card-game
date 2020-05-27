@@ -32,6 +32,17 @@ app.listen(4000, function() {
   console.log('listening on 4000')
 }) 
 
+app.get('/cards', (req, res) => {
+  cardsCollection.find({})
+    .then(result => {
+      console.log(result)
+      res.send(result)
+    })
+    .catch(error => {
+      res.send(error)
+    })
+})
+
 app.post('/cards', (req, res) => {
   cardsCollection.insertOne(req.body)
     .then(result => {
