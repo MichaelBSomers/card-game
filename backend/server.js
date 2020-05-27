@@ -36,6 +36,9 @@ app.post('/cards', (req, res) => {
   cardsCollection.insertOne(req.body)
     .then(result => {
       console.log(result)
+      res.send(result.ops)
     })
-    .catch(error => console.error(error))
+    .catch(error => {
+      res.send(error)
+    })
 })

@@ -14,10 +14,6 @@ import {
   Nav,
   NavItem,
   NavLink,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
   NavbarText
 } from 'reactstrap';
 
@@ -59,12 +55,12 @@ ReactDOM.render(
             </NavItem>
             <NavItem>
               <NavLink>
-                <Link to="/card-creater">Card Creater</Link>
+                <Link to="/card-creator">Card Creator</Link>
               </NavLink>
             </NavItem>
             <NavItem>
               <NavLink>
-                <Link to="/deck-creater">Deck Creater</Link>
+                <Link to="/deck-creator">Deck Creator</Link>
               </NavLink>
             </NavItem>
           </Nav>
@@ -78,10 +74,10 @@ ReactDOM.render(
       <Route path="/deck-viewer">
         <ViewDeck/>
       </Route>
-      <Route path="/card-creater">
+      <Route path="/card-creator">
         <CreateCard/>
       </Route>
-      <Route path="/deck-creater">
+      <Route path="/deck-creator">
         <CreateDeck/>
       </Route>
       <Route path="/">
@@ -89,11 +85,6 @@ ReactDOM.render(
       </Route>
     </Switch>
       </Container>
-    
-    
-    
-
-    
   </Router>
   </div>,
   document.getElementById("root")

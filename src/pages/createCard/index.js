@@ -1,51 +1,58 @@
-import React, { Component } from "react";
-import Form from 'react-bootstrap/Form'
-import Button from 'react-bootstrap/Button';
+import React, { useState } from "react";
+import { Button, Form, FormGroup, Label, Input, FormText, Row, Container, Col } from 'reactstrap';
 import axios from 'axios';
 
-export default class CreateStudent extends Component {
+const CreateCard = () => {
+  const [name, setName] = useState('')
+  const [image, setImage] = useState('')
+  const [faction, setFaction] = useState('')
+  const [cardType, setCardType] = useState('')
+  const [rarity, setRarity] = useState('')
+  const [power, setPower] = useState(null)
+  const [toughness, setToughness] = useState(null)
+  const [description, setDescription] = useState('')
+  const [rules, setRules] = useState(null)
 
-  constructor(props) {
-    super(props)
-
-    // Setting up functions
-    this.onChangeStudentName = this.onChangeStudentName.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
-
-    // Setting up state
-    this.state = {
-      name: '',
-    }
+  const onNameChange = (e) => {
+    setName(e.target.value)
   }
 
-  onChangeStudentName(e) {
-    this.setState({ name: e.target.value })
-  }
-
-  onSubmit(e) {
+  const onSubmit = async (e) => {
     e.preventDefault()
 
     const studentObject = {
-      name: this.state.name, 
+      name: name, 
     };
-    axios.post('http://localhost:4000/cards', studentObject)
-      .then(res => console.log(res.data));
+    const response = await axios.post('http://localhost:4000/cards', studentObject)
+    console.log('response', response)
 
-    this.setState({ name: '', email: '', rollno: '' })
+    setName('')
   }
 
-  render() {
-    return (<div className="form-wrapper">
-      <Form onSubmit={this.onSubmit}>
-        <Form.Group controlId="Name">
-          <Form.Label>Name</Form.Label>
-          <Form.Control type="text" value={this.state.name} onChange={this.onChangeStudentName} />
-        </Form.Group>
+  return (
+    <Container>
+        <Row>
+          <Col>
+          </Col>
+        </Row>
+        <Form onSubmit={onSubmit}>
+          <Row>
+            <Col>
+              <h1>Card Viewer</h1>
+            </Col>
+          </Row>
+          <hr/>
+          <FormGroup>
+            <Label>Name</Label>
+            <Input type="text" value={name} onChange={onNameChange} />
+          </FormGroup>
 
-        <Button variant="danger" size="lg" block="block" type="submit">
-          Create Student
-        </Button>
-      </Form>
-    </div>);
-  }
+          <Button variant="danger" size="lg" block type="submit">
+            Create Card
+          </Button>
+        </Form>
+      </Container>
+  )
 }
+
+export default CreateCard
