@@ -19,6 +19,9 @@ const CreateDeck = () => {
 
     const response = await axios.post('http://localhost:4000/decks', deckInfo)
     console.log('response', response)
+    setName('')
+    setDescription('')
+    setImage('')
   }
 
   return (

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Form, FormGroup, Label, Input, Row, Container, Col, FormText } from 'reactstrap';
 import axios from 'axios';
 
@@ -30,6 +30,20 @@ const CreateCard = () => {
   const [description, setDescription] = useState(undefined)
   const [rules, setRules] = useState(null)
 
+  const [decks, setDecks] = useState([])
+
+
+  useEffect(() => {
+    retrieveDeckList()
+  }, [])
+
+  const retrieveDeckList = async () => {
+    const response = await axios.get('http://localhost:4000/decks')
+    if(response.status === 200) {
+      setDecks(response.data)
+    }
+  }
+
   const onSubmit = async (e) => {
     e.preventDefault()
 
@@ -56,6 +70,8 @@ const CreateCard = () => {
     setFaction('')
     setCardType(null)
   }
+
+  console.log('decks', decks)
 
   return (
     <Container className={'pt-3'}>
@@ -118,8 +134,14 @@ const CreateCard = () => {
                 <Label for='faction' required>Faction*</Label>
                 <Input type='select' name='faction' id='faction' onChange={(e) => setFaction(e.target.value)} defaultValue={0}>
                   <option disabled hidden value={0}>Select</option>
-                  <option>{FACTIONS.test}</option>
-                  <option>{FACTIONS.testTwo}</option>
+                  {
+                    decks.length > 0 &&
+                    decks.map(deck => {
+                      return (
+                        <option key={deck._id} value={deck.name}>{deck.name}</option>
+                      )
+                    })
+                  }
                 </Input>
               </FormGroup> 
             </Col>
