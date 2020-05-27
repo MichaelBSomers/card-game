@@ -30,7 +30,7 @@ import {
 ReactDOM.render(
   <div className={'background'}>
   <Router>
-    <Container>
+    <Container className={'p-3'}>
       <Row>
         <Col>
           <Link to="/">

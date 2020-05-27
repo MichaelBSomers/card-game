@@ -43,4 +43,10 @@ Start
                         Create new decks
                         TODO Implement collection in DB for decks.
 
+    > API
+
+        This is done using Axios
+            * Post Requests
+            * Get Requests
+
                     
