@@ -6,15 +6,6 @@ import CardView from "./components/CardView";
 const ViewCard = () => {
   const [cards, setCards] = useState([])
   const [selectedCard, setSelectedCard] = useState(null)
-  const onSubmit = async (e) => {
-    e.preventDefault()
-
-    const cardInfo = {
-    };
-
-    const response = await axios.get('http://localhost:4000/cards', cardInfo)
-    console.log('response', response)
-  }
 
   useEffect(() => {
     retrieveCards()
@@ -24,10 +15,20 @@ const ViewCard = () => {
     const response = await axios.get('http://localhost:4000/cards')
     if(response.status === 200 && response.data.length > 0) {
       setCards(response.data)
+    } else {
+      setCards([])
     }
+    // TODO alert Update / Error
   }
 
-  console.log('cards', cards)
+  const deleteCard = async (card) => {
+    const response = await axios.post('http://localhost:4000/cards/delete', card)
+    if(response.status === 200) {
+      setSelectedCard(null)
+      retrieveCards()
+    }
+    // TODO alert Update / Error
+  }
 
   return (
     <Container className={'pt-3'}>
@@ -62,7 +63,7 @@ const ViewCard = () => {
       }
       {
         selectedCard &&
-        <CardView card={selectedCard}/>
+        <CardView card={selectedCard} deleteCard={deleteCard}/>
       }
       
     </Container>

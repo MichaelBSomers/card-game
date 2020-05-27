@@ -34,7 +34,20 @@ app.use(cors());
 
 app.listen(4000, function() {
   console.log('listening on 4000')
-}) 
+})
+
+app.post('/cards/delete', (req, res) => {
+  
+  let id = new mongoose.Types.ObjectId(req.body._id)
+  console.log(id)
+  cardsCollection.deleteOne({_id: id})
+    .then(result => {
+      res.send(result)
+    })
+    .catch(error => {
+      res.send(error)
+    })
+})
 
 app.get('/cards', (_req, res) => {
   cardsCollection.find().toArray()

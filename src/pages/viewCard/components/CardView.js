@@ -1,13 +1,11 @@
 import React from "react";
-import { Row, Col} from "reactstrap";
+import { Row, Col, Button} from "reactstrap";
 import { CARD_TYPES } from "../../createCard";
 
-const CardView = ({card = {}}) => {
-
-  console.log(card)
-  console.log(card.cardType)
+const CardView = ({card = {}, deleteCard = () => {}}) => {
 
   return (
+    <div>
       <Row>
         <Col md={6}>
           
@@ -45,6 +43,12 @@ const CardView = ({card = {}}) => {
           </Row>
         </Col>
       </Row>
+      <Row>
+        <Col>
+          <Button block onClick={() => deleteCard(card)}>Delete Card</Button>
+        </Col>
+      </Row>
+    </div>
   )
 }
 
