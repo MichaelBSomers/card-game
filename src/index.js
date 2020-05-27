@@ -7,14 +7,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import {
   Container,
-  Collapse,
-  Navbar,
-  NavbarToggler,
-  NavbarBrand,
-  Nav,
-  NavItem,
-  NavLink,
-  NavbarText
+  Button,
+  Row,
+  Col
 } from 'reactstrap';
 
 // Pages
@@ -36,37 +31,44 @@ ReactDOM.render(
   <div className={'background'}>
   <Router>
     <Container>
-        <Navbar color="light" light expand="md">
-        <NavbarBrand>
-          <Link to="/">ClanFare</Link>
-        </NavbarBrand>
-        <NavbarToggler  />
-        <Collapse  navbar>
-          <Nav className="mr-auto" navbar>
-            <NavItem>
-              <NavLink>
-                <Link to="/card-viewer">Card Viewer</Link>
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink>
-                <Link to="/deck-viewer">Deck Viewer</Link>
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink>
-                <Link to="/card-creator">Card Creator</Link>
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink>
-                <Link to="/deck-creator">Deck Creator</Link>
-              </NavLink>
-            </NavItem>
-          </Nav>
-          <NavbarText>Simple Text</NavbarText>
-        </Collapse>
-      </Navbar>
+      <Row>
+        <Col>
+          <Link to="/">
+            <Button block>
+              ClanFare
+            </Button>
+          </Link>
+        </Col>
+        <Col>
+          <Link to="/card-viewer">
+            <Button block>
+              Card Viewer
+            </Button>
+          </Link>
+        </Col>
+        <Col>
+          <Link to="/deck-viewer">
+            <Button block>
+              Deck Viewer
+            </Button>
+          </Link>
+        </Col>
+        <Col>
+          <Link to="/card-creator">
+            <Button block>
+              Card Creator
+            </Button>
+          </Link>
+        </Col>
+        <Col>
+          <Link to="/deck-creator">
+            <Button block>
+              Deck Creator
+            </Button>
+          </Link>
+        </Col>
+      </Row>
+      
       <Switch>
       <Route path="/card-viewer">
         <ViewCard/>

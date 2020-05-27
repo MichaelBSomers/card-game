@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Form, FormGroup, Label, Input, FormText, Row, Container, Col } from 'reactstrap';
+import { Button, Form, FormGroup, Label, Input, Row, Container, Col } from 'reactstrap';
 import axios from 'axios';
 
 const CreateCard = () => {
@@ -15,6 +15,10 @@ const CreateCard = () => {
 
   const onNameChange = (e) => {
     setName(e.target.value)
+  }
+
+  const onImageChange = (e) => {
+    setImage(e.target.value)
   }
 
   const onSubmit = async (e) => {
@@ -42,9 +46,18 @@ const CreateCard = () => {
             </Col>
           </Row>
           <hr/>
+          <Row>
+            <Col md={6}>
+              <FormGroup>
+                <Label>Name</Label>
+                <Input type="text" value={name} onChange={onNameChange} required id='name'/>
+              </FormGroup>  
+            </Col>
+          </Row>
+          
           <FormGroup>
-            <Label>Name</Label>
-            <Input type="text" value={name} onChange={onNameChange} />
+            <Label>Image</Label>
+            <Input type="text" value={name} onChange={onImageChange} required/>
           </FormGroup>
 
           <Button variant="danger" size="lg" block type="submit">
