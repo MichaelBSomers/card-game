@@ -18,7 +18,11 @@ const CreateDeck = () => {
     };
 
     const response = await axios.post('http://localhost:4000/decks', deckInfo)
+    // TODO Implement Confirmation/Error
     console.log('response', response)
+    setName('')
+    setDescription('')
+    setImage('')
   }
 
   return (

@@ -34,9 +34,43 @@ app.use(cors());
 
 app.listen(4000, function() {
   console.log('listening on 4000')
-}) 
+})
 
-app.get('/cards', (req, res) => {
+app.post('/cards/update', (req, res) => {
+  const newValues = { $set: {
+    name: req.body.name,
+    image: req.body.image,
+    faction: req.body.faction,
+    cardType: req.body.cardType,
+    rarity: req.body.rarity,
+    description: req.body.description,
+    rules: req.body.rules,
+    power: req.body.power,
+    toughness: req.body.toughness
+  }}
+  const id = new mongoose.Types.ObjectId(req.body._id)
+  cardsCollection.updateOne({_id: id}, newValues)
+    .then(result => {
+      res.send(result)
+    })
+    .catch(error => {
+      res.send(error)
+    })
+})
+
+app.post('/cards/delete', (req, res) => {
+  
+  let id = new mongoose.Types.ObjectId(req.body._id)
+  cardsCollection.deleteOne({_id: id})
+    .then(result => {
+      res.send(result)
+    })
+    .catch(error => {
+      res.send(error)
+    })
+})
+
+app.get('/cards', (_req, res) => {
   cardsCollection.find().toArray()
     .then(result => {
       console.log(result)
@@ -52,6 +86,17 @@ app.post('/cards', (req, res) => {
     .then(result => {
       console.log(result)
       res.send(result.ops)
+    })
+    .catch(error => {
+      res.send(error)
+    })
+})
+
+app.get('/decks', (_req, res) => {
+  decksCollection.find().toArray()
+    .then(result => {
+      console.log(result)
+      res.send(result)
     })
     .catch(error => {
       res.send(error)

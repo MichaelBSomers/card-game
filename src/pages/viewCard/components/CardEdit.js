@@ -1,34 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { Button, Form, FormGroup, Label, Input, Row, Container, Col, FormText } from 'reactstrap';
-import axios from 'axios';
+import { Row, Col, Button, Form, FormGroup, Label, Input, FormText} from "reactstrap";
+import { CARD_TYPES, CARD_RARITIES } from "../../createCard";
 
- export const CARD_TYPES = {
-  creature: 'Creature',
-  spell: 'Spell',
-  legendary: 'Legendary'
-}
+import axios from 'axios'
 
-export const CARD_RARITIES = {
-  common: 'Common',
-  rare: 'Rare'
-}
-
-export const FACTIONS = {
-  test: 'test',
-  testTwo: 'testTwo'
-}
-
-
-const CreateCard = () => {
-  const [name, setName] = useState('')
-  const [image, setImage] = useState('')
-  const [faction, setFaction] = useState('')
-  const [cardType, setCardType] = useState(undefined)
-  const [rarity, setRarity] = useState('')
-  const [power, setPower] = useState('')
-  const [toughness, setToughness] = useState('')
-  const [description, setDescription] = useState(undefined)
-  const [rules, setRules] = useState(null)
+const CardEdit = ({card = {}, editCard = () => {}}) => {
+  const [name, setName] = useState(card.name)
+  const [image, setImage] = useState(card.image)
+  const [faction, setFaction] = useState(card.faction)
+  const [cardType, setCardType] = useState(card.cardType)
+  const [rarity, setRarity] = useState(card.rarity)
+  const [power, setPower] = useState(card.power)
+  const [toughness, setToughness] = useState(card.toughness)
+  const [description, setDescription] = useState(card.description)
+  const [rules, setRules] = useState(card.rules)
 
   const [decks, setDecks] = useState([])
 
@@ -45,41 +30,26 @@ const CreateCard = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault()
+    
+    let cardInfo = {...card}
+    
+    cardInfo.name = name
+    cardInfo.image = image
+    cardInfo.faction = faction
+    cardInfo.cardType = cardType
+    cardInfo.rarity = rarity
+    cardInfo.description = description
+    cardInfo.rules = rules
+    cardInfo.power = power
+    cardInfo.toughness = toughness
 
-    const cardInfo = {
-      name,
-      image,
-      faction,
-      cardType,
-      rarity,
-      description,
-      rules
-    };
-
-    if(cardType === CARD_TYPES.creature) {
-      cardInfo.power = power
-      cardInfo.toughness = power
-    }
-
-    const response = await axios.post('http://localhost:4000/cards', cardInfo)
-    // TODO Implement Confirmation/Error
-    console.log('response', response)
-
-    setName('')
-    setImage('')
-    setFaction('')
-    setCardType(null)
+    editCard(cardInfo)
   }
 
+  console.log(card)
+
   return (
-    <Container className={'pt-3'}>
-          <Row>
-            <Col>
-              <h1>Card Creator</h1>
-            </Col>
-          </Row>
-          <hr/>
-          <Form onSubmit={onSubmit}>
+      <Form onSubmit={onSubmit}>
           <Row>
             <Col md={6}>
               <FormGroup>
@@ -90,7 +60,7 @@ const CreateCard = () => {
             <Col md={6}>
               <FormGroup>
                 <Label for='cardType'>Card Type</Label>
-                <Input type='select' name='cardType' id='cardType' onChange={(e) => setCardType(e.target.value)} defaultValue={0}>
+                <Input type='select' name='cardType' id='cardType' onChange={(e) => setCardType(e.target.value)} defaultValue={cardType}>
                   <option disabled hidden value={0}>Select</option>
                   <option>{CARD_TYPES.creature}</option>
                   <option>{CARD_TYPES.spell}</option>
@@ -120,7 +90,7 @@ const CreateCard = () => {
             <Col md={6}>
               <FormGroup>
                 <Label for='rarity' required>Rarity*</Label>
-                <Input type='select' name='rarity' id='rarity' onChange={(e) => setRarity(e.target.value)} defaultValue={0}>
+                <Input type='select' name='rarity' id='rarity' onChange={(e) => setRarity(e.target.value)} defaultValue={rarity}>
                   <option disabled hidden value={0}>Select</option>
                   <option>{CARD_RARITIES.common}</option>
                   <option>{CARD_RARITIES.rare}</option>
@@ -130,7 +100,7 @@ const CreateCard = () => {
             <Col md={6}>
               <FormGroup>
                 <Label for='faction' required>Faction*</Label>
-                <Input type='select' name='faction' id='faction' onChange={(e) => setFaction(e.target.value)} defaultValue={0}>
+                <Input type='select' name='faction' id='faction' onChange={(e) => setFaction(e.target.value)} defaultValue={faction}>
                   <option disabled hidden value={0}>Select</option>
                   {
                     decks.length > 0 &&
@@ -167,11 +137,10 @@ const CreateCard = () => {
           
           {/* TODO: Implement disabled handling */}
           <Button variant="danger" size="lg" block type="submit">
-            Create Card
+            Save
           </Button>
         </Form>
-      </Container>
   )
 }
 
-export default CreateCard
+export default CardEdit
