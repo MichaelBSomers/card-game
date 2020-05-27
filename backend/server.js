@@ -36,6 +36,29 @@ app.listen(4000, function() {
   console.log('listening on 4000')
 })
 
+app.post('/cards/update', (req, res) => {
+  const newValues = { $set: {
+    name: req.body.name,
+    image: req.body.image,
+    faction: req.body.faction,
+    cardType: req.body.cardType,
+    rarity: req.body.rarity,
+    description: req.body.description,
+    rules: req.body.rules,
+    power: req.body.power,
+    toughness: req.body.toughness
+  }}
+  console.log(newValues)
+  const id = new mongoose.Types.ObjectId(req.body._id)
+  cardsCollection.updateOne({_id: id}, newValues)
+    .then(result => {
+      res.send(result)
+    })
+    .catch(error => {
+      res.send(error)
+    })
+})
+
 app.post('/cards/delete', (req, res) => {
   
   let id = new mongoose.Types.ObjectId(req.body._id)

@@ -15,6 +15,12 @@ const ViewCard = () => {
     const response = await axios.get('http://localhost:4000/cards')
     if(response.status === 200 && response.data.length > 0) {
       setCards(response.data)
+      if(selectedCard) {
+        const selectedCardUpdate = response.data.find(item => {
+          return item._id === selectedCard._id
+        })
+        setSelectedCard(selectedCardUpdate)
+      }
     } else {
       setCards([])
     }
@@ -25,6 +31,15 @@ const ViewCard = () => {
     const response = await axios.post('http://localhost:4000/cards/delete', card)
     if(response.status === 200) {
       setSelectedCard(null)
+      retrieveCards()
+    }
+    // TODO alert Update / Error
+  }
+
+  const editCard = async (card) => {
+    console.log(card)
+    const response = await axios.post('http://localhost:4000/cards/update', card)
+    if(response.status === 200) {
       retrieveCards()
     }
     // TODO alert Update / Error
@@ -63,9 +78,8 @@ const ViewCard = () => {
       }
       {
         selectedCard &&
-        <CardView card={selectedCard} deleteCard={deleteCard}/>
+        <CardView card={selectedCard} deleteCard={deleteCard} editCard={editCard}/>
       }
-      
     </Container>
   )
 }
