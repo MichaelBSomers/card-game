@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Form, FormGroup, Label, Input, Row, Container, Col, Dropdown, DropdownToggle, DropdownMenu, DropdownItem, FormText } from 'reactstrap';
+import { Button, Form, FormGroup, Label, Input, Row, Container, Col, FormText } from 'reactstrap';
 import axios from 'axios';
 
 const CARD_TYPES = {
@@ -59,17 +59,13 @@ const CreateCard = () => {
 
   return (
     <Container className={'pt-3'}>
-        <Row>
-          <Col>
-          </Col>
-        </Row>
-        <Form onSubmit={onSubmit}>
           <Row>
             <Col>
               <h1>Card Creator</h1>
             </Col>
           </Row>
           <hr/>
+          <Form onSubmit={onSubmit}>
           <Row>
             <Col md={6}>
               <FormGroup>

@@ -1,53 +1,58 @@
-import React, { Component } from "react";
-import Form from 'react-bootstrap/Form'
-import Button from 'react-bootstrap/Button';
+import React, { useEffect, useState } from "react";
+import { Button, Form, Row, Container, Col } from 'reactstrap';
 import axios from 'axios';
 
-export default class CreateStudent extends Component {
+const ViewCard = () => {
+  const [cards, setCards] = useState([null])
+  const onSubmit = async (e) => {
+    e.preventDefault()
 
-  constructor(props) {
-    super(props)
+    const cardInfo = {
+    };
 
-    // Setting up functions
-    this.onChangeStudentName = this.onChangeStudentName.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
+    const response = await axios.get('http://localhost:4000/cards', cardInfo)
+    console.log('response', response)
+  }
 
-    // Setting up state
-    this.state = {
-      name: '',
+  useEffect(() => {
+    retrieveCards()
+  }, [])
+
+  const retrieveCards = async () => {
+    const response = await axios.get('http://localhost:4000/cards')
+    if(response.status === 200 && response.data.length > 0) {
+      setCards(response.data)
     }
   }
 
-  onChangeStudentName(e) {
-    this.setState({ name: e.target.value })
-  }
+  console.log(cards)
 
-  onSubmit(e) {
-    e.preventDefault()
-
-    const studentObject = {
-      name: this.state.name, 
-    };
-    axios.post('http://localhost:4000/cards', studentObject)
-      .then(res => console.log(res.data));
-
-    this.setState({ name: '', email: '', rollno: '' })
-  }
-
-  render() {
-    return (
-      <div className="form-wrapper">
-        <Form onSubmit={this.onSubmit}>
-          <Form.Group controlId="Name">
-            <Form.Label>Name</Form.Label>
-            <Form.Control type="text" value={this.state.name} onChange={this.onChangeStudentName} />
-          </Form.Group>
-
-          <Button variant="danger" size="lg" block="block" type="submit">
-            Create Student
+  return (
+    <Container className={'pt-3'}>
+        <Row>
+          <Col>
+          </Col>
+        </Row>
+        <Form onSubmit={onSubmit}>
+          <Row>
+            <Col>
+              <h1>Card Viewer</h1>
+            </Col>
+          </Row>
+          <hr/>
+          <Row>
+            <Col>
+            
+            </Col>
+          </Row>
+          
+          {/* TODO: Implement disabled handling */}
+          <Button variant="danger" size="lg" block type="submit">
+            Retrieve Cards
           </Button>
         </Form>
-      </div>
-    );
-  }
+      </Container>
+  )
 }
+
+export default ViewCard

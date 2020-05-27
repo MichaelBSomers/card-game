@@ -33,7 +33,7 @@ app.listen(4000, function() {
 }) 
 
 app.get('/cards', (req, res) => {
-  cardsCollection.find({})
+  cardsCollection.find().toArray()
     .then(result => {
       console.log(result)
       res.send(result)
