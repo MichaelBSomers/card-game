@@ -26,7 +26,7 @@ const CardView = ({card = {}, deleteCard = () => {}, editCard = () => {}}) => {
         <Col>
             <Button block onClick={() => setEdit(!edit)}>
               {
-                !edit ? 'Edit Card' : 'Cancel' 
+                !edit ? 'Edit Card' : 'Cancel'
               }
             </Button>
         </Col>

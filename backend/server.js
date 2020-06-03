@@ -59,7 +59,6 @@ app.post('/cards/update', (req, res) => {
 })
 
 app.post('/cards/delete', (req, res) => {
-  
   let id = new mongoose.Types.ObjectId(req.body._id)
   cardsCollection.deleteOne({_id: id})
     .then(result => {
