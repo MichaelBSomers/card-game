@@ -18,6 +18,7 @@ const CardInfo = ({card = {}}) => {
           card.cardType === CARD_TYPES.creature &&
           <div>Toughness:</div>
         }
+        <div>Mana Cost:</div>
       </Col>
       <Col>
         <div>{card.name}</div>
@@ -32,6 +33,7 @@ const CardInfo = ({card = {}}) => {
           card.cardType === CARD_TYPES.creature &&
           <div>{card.toughness}</div>
         }
+        <div>{card.manaCost}</div>
       </Col>
     </Row>
   )
