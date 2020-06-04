@@ -46,7 +46,8 @@ app.post('/cards/update', (req, res) => {
     description: req.body.description,
     rules: req.body.rules,
     power: req.body.power,
-    toughness: req.body.toughness
+    toughness: req.body.toughness,
+    manaCost: req.body.manaCost
   }}
   const id = new mongoose.Types.ObjectId(req.body._id)
   cardsCollection.updateOne({_id: id}, newValues)

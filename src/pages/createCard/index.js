@@ -10,7 +10,9 @@ import axios from 'axios';
 
 export const CARD_RARITIES = {
   common: 'Common',
-  rare: 'Rare'
+  uncommon: 'Uncommon',
+  rare: 'Rare',
+  legendary: 'Legendary'
 }
 
 export const FACTIONS = {
@@ -55,7 +57,8 @@ const CreateCard = () => {
       cardType,
       rarity,
       description,
-      mechanic
+      mechanic,
+      manaCost
     };
 
     if(cardType === CARD_TYPES.creature) {
@@ -146,6 +149,7 @@ const CreateCard = () => {
             </FormGroup> 
           </Col>
         </Row>
+
         <Row>
           <Col md={6}>
             <FormGroup>

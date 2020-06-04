@@ -15,8 +15,6 @@ const getCardRarityColor = (rarity) => {
 } 
 
 const CardDisplay = ({card}) => {
-  console.log('card', card)
-
   return (
     <div className={'card-border p-0'}>
       <div className={'card-background pt-1 pb-2 px-3'}>
@@ -26,7 +24,7 @@ const CardDisplay = ({card}) => {
               {card.name}
             </Col>
             <Col className={'card-mana-cost d-flex justify-content-end'}>
-              <div className={'number d-flex justify-content-center'}>1</div>
+              <div className={'number d-flex justify-content-center'}>{card.manaCost}</div>
             </Col>
           </Row>
           <Row className={'card-art-row'}>
@@ -51,9 +49,12 @@ const CardDisplay = ({card}) => {
           <Row className={'card-power-row h-0'}>
             <Col className={''}>
             </Col>
-            <Col className={'card-power  d-flex justify-content-end pr-0 align-items-center'}>
-              <div className={'power-container d-flex justify-content-center'}>{`${card.power}/${card.toughness}`}</div>
-            </Col>
+            {
+              card.power && card.toughness &&
+              <Col className={'card-power  d-flex justify-content-end pr-0 align-items-center'}>
+                <div className={'power-container d-flex justify-content-center'}>{`${card.power}/${card.toughness}`}</div>
+              </Col>
+            }
           </Row>
         </div>
       </div>

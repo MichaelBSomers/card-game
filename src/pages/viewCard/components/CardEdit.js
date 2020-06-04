@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Row, Col, Button, Form, FormGroup, Label, Input, FormText} from "reactstrap";
-import { CARD_TYPES, CARD_RARITIES } from "../../createCard";
+import { CARD_TYPES, CARD_RARITIES, MANA_COSTS } from "../../createCard";
 
 import axios from 'axios'
 
@@ -13,7 +13,8 @@ const CardEdit = ({card = {}, editCard = () => {}}) => {
   const [power, setPower] = useState(card.power)
   const [toughness, setToughness] = useState(card.toughness)
   const [description, setDescription] = useState(card.description)
-  const [rules, setRules] = useState(card.rules)
+  const [mechanics, setMechanics] = useState(card.rules)
+  const [manaCost, setManaCost] = useState(card.manaCost || 0)
 
   const [decks, setDecks] = useState([])
 
@@ -39,9 +40,10 @@ const CardEdit = ({card = {}, editCard = () => {}}) => {
     cardInfo.cardType = cardType
     cardInfo.rarity = rarity
     cardInfo.description = description
-    cardInfo.rules = rules
+    cardInfo.mechanics = mechanics
     cardInfo.power = power
     cardInfo.toughness = toughness
+    cardInfo.manaCost = manaCost
 
     editCard(cardInfo)
   }
@@ -114,6 +116,23 @@ const CardEdit = ({card = {}, editCard = () => {}}) => {
               </FormGroup> 
             </Col>
           </Row>
+
+          <Row>
+          <Col md={6}>
+            <FormGroup>
+              <Label for='manaCost'>Mana Cost*</Label>
+              <Input type='select' name='manaCost' id='manaCost' onChange={(e) => setManaCost(e.target.value)} defaultValue={manaCost}>
+                {
+                  MANA_COSTS.map(item => {
+                    return (
+                      <option key={item} value={item}>{item}</option>
+                    )
+                  })
+                }
+              </Input>
+            </FormGroup>
+          </Col>
+        </Row>
          
           <Row>
             <Col>
