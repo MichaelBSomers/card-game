@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Row, Col, Button} from "reactstrap";
 import CardInfo from './CardInfo'
 import CardEdit from "./CardEdit";
+import CardDisplay from "../../../components/CardDisplay";
 
 const CardView = ({card = {}, deleteCard = () => {}, editCard = () => {}}) => {
   const [edit, setEdit] = useState(false)
@@ -13,6 +14,11 @@ const CardView = ({card = {}, deleteCard = () => {}, editCard = () => {}}) => {
   
   return (
     <div>
+      <Row>
+        <Col className={'d-flex justify-content-start'}>
+          <CardDisplay card={card}/>
+        </Col>
+      </Row>
       <Row>
         <Col>
           {
@@ -26,7 +32,7 @@ const CardView = ({card = {}, deleteCard = () => {}, editCard = () => {}}) => {
         <Col>
             <Button block onClick={() => setEdit(!edit)}>
               {
-                !edit ? 'Edit Card' : 'Cancel' 
+                !edit ? 'Edit Card' : 'Cancel'
               }
             </Button>
         </Col>
