@@ -1,0 +1,100 @@
+@import '~bootstrap/scss/bootstrap.scss';
+
+.card-border {
+    border: 10px solid black;
+    border-radius: 5px;
+    width: 250px;
+    font-size: 12px;
+    .card-background {
+        .card-details-container {
+            .card-name-row {
+                border: 2px solid black;
+                border-radius: 8px;
+                background-color: rgb(224, 224, 222);
+                .card-name {
+                    font-size: 12px;
+                }
+
+                .card-mana-cost {
+                    .number {
+                        border-radius: 100%;
+                        background-color: black;
+                        width: 20px;
+                        color: white;
+                    }
+                }
+            }
+
+            .card-art-row {
+                margin-left: -9px;
+                margin-right: -9px;
+                border-left: 2px solid black;
+                border-right: 2px solid black;
+                height: 125px;
+                .card-art {
+                    background-color: khaki;
+                    border-radius: inherit;
+                }
+            }
+
+            .card-type-row {
+                border: 2px solid black;
+                border-radius: 8px;
+                background-color: rgb(224, 224, 222);
+                .card-type {
+                    
+                }
+                .card-rarity-color {
+                    .rarity-color-gray {
+                        background-color: gray;
+                    }
+                    .rarity-color-green {
+                        background-color: green;
+                    }
+                    .rarity-color-blue {
+                        background-color: blue;
+                    }
+                    .rarity-color-gold {
+                        background-color: gold;
+                    }
+                    .rarity-color-black {
+                        background-color: black;
+                    }
+                    .card-type-color-box {
+                        width: 13.5px;
+                        border-radius: 3px;
+                        // background-color: green;
+                        font-size: 0;
+                    }
+                }
+            }
+
+            .card-description-row {
+                margin-left: -9px;
+                margin-right: -9px;
+                height: 120px;
+                background-color: white;
+                border: 2px solid black;
+                border-top: none;
+                .card-description {
+
+                }
+            }
+
+            .card-power-row {
+                .card-power {
+                    height: 0px;
+                    .power-container {
+                        margin-top: -12px;
+                        font-size: 16px;
+                        width: 50px;
+                        border: 1px solid black;
+                        border-radius: 5px;
+                        background-color: black;
+                        color: white;
+                    }
+                }
+            }
+        }
+    }
+}
